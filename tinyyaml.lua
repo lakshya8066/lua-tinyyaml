@@ -337,7 +337,12 @@ function Parser:parseflowstyle(line, lines)
       if not s then
         error('invalid flowstyle line: '..line)
       end
-      tinsert(stack, {v=s, t='s'})
+      local n = tonumber(s)
+      if n and not startswith(line, '"') then
+        tinsert(stack, {v = n, t = 's'})
+      else
+        tinsert(stack, {v = s, t = 's'})
+      end
       line = rest
     end
   end
