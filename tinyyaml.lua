@@ -231,7 +231,9 @@ function Parser:parsestring(line, stopper)
     end
     line = ssub(line, 2)
   end
-  return rtrim(buf), line
+  buf = rtrim(buf)
+  local val = tonumber(buf) or buf
+  return val, line
 end
 
 local function isemptyline(line)
@@ -337,12 +339,7 @@ function Parser:parseflowstyle(line, lines)
       if not s then
         error('invalid flowstyle line: '..line)
       end
-      local n = tonumber(s)
-      if n and not startswith(line, '"') then
-        tinsert(stack, {v = n, t = 's'})
-      else
-        tinsert(stack, {v = s, t = 's'})
-      end
+      tinsert(stack, {v=s, t='s'})
       line = rest
     end
   end
@@ -861,3 +858,4 @@ return {
   version = 0.1,
   parse = parse,
 }
+

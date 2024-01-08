@@ -94,7 +94,7 @@ busted.describe("example", function()
     end
 
     assert.same(
-      '6.8523015e+5',  -- not supported
+      6.8523015e+5,
       t.float.canonical
     )
     assert.same(
