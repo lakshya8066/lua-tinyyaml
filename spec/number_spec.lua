@@ -3,7 +3,8 @@ local assert = require('luassert')
 local yaml   = require('tinyyaml')
 
 busted.describe("numbers in nested seq:", function ()
-    local parsed_yaml = yaml.parse(io.open("spec/number.yaml"):read('*a'))
+    local parsed_yaml = yaml.parse('case: [["status", "==", 302]]')
+    local parsed_yaml2 = yaml.parse('case: [["status", "==", "302"]]')
     busted.it("numbers", function ()
         assert.same(
             {
@@ -40,6 +41,14 @@ busted.describe("numbers in nested seq:", function ()
             {
                 case = {{"status", "==", 302}}
             }, parsed_yaml
+        )
+    end)
+
+    busted.it("number inside [] brackets in double quotes", function ()
+        assert.same(
+            {
+                case = {{"status", "==", "302"}}
+            }, parsed_yaml2
         )
     end)
 end)
