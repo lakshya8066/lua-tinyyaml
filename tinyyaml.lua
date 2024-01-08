@@ -231,7 +231,9 @@ function Parser:parsestring(line, stopper)
     end
     line = ssub(line, 2)
   end
-  return rtrim(buf), line
+  buf = rtrim(buf)
+  local val = tonumber(buf) or buf
+  return val, line
 end
 
 local function isemptyline(line)
@@ -856,3 +858,4 @@ return {
   version = 0.1,
   parse = parse,
 }
+
